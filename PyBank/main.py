@@ -20,7 +20,7 @@ with open(bank_csv) as csv_file:
     profit_loss = {}
      #loop through the csv to add to the dictionary
     for row in csv_reader:
-        profit_loss[row[0]] = row[1]
+        profit_loss[row[0]] = int(row[1])
     
     #count number of entries (months)
     months=len(profit_loss)
@@ -28,16 +28,16 @@ with open(bank_csv) as csv_file:
     #sum net profit/loss by totalling dictionary value for each month (key)
     netprof=0
     for key in profit_loss.keys():
-        prof=int(profit_loss[key])
+        prof=profit_loss[key]
         netprof += prof
 
     change=[]
     for key in profit_loss.keys():
-        change.append(int(profit_loss[key+1]) - int(profit_loss[key]))
+        change.append(profit_loss[key+1] - profit_loss[key])
     totchange=0
     for x in change:
-        totchange+= int(x)
-    avchange = int(totchange)/int(len(change))
+        totchange+= x
+    avchange = totchange/len(change)
 
 
 
