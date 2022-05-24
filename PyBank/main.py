@@ -31,15 +31,43 @@ with open(bank_csv) as csv_file:
         prof=profit_loss[key]
         netprof += prof
 
-    change=[]
-    for key in profit_loss.keys():
-        change.append(profit_loss[key+1] - profit_loss[key])
-    totchange=0
-    for x in change:
-        totchange+= x
-    avchange = totchange/len(change)
+    #create a list of all the profits only by extracting each value from each key of our dic
+    profitonly=[profit_loss[key] for key in profit_loss.keys()]
+
+    #create a list using the list above. This time it is a list of the change in profit from each month
+    #it has to start from index 1 as there is no change to calculate from index 0
+    #use len function on list of profits to find the last entry number in the list to iterate to
+    profchange=[profitonly[i]-profitonly[i-1] for i in range(1, len(profitonly))]
+    avchange=sum(profchange)/len(profchange)
+    formatavchange="{:.2f}".format(avchange)
+
+    #each element (n) in the profchange list corresponds to element (n+1) of the profit_loss dictionary
+    # return the index numbers of the max and min values in the profchange list and then return corresponding key name
+
+    #create list of key names from profit_loss to access them by index
+    keys_list=list(profit_loss)
+    #max profit increase:
+    maxincreaseamount = max(profchange)
+    #index of max increase stored as variable
+    k = profchange.index(max(profchange))
+    #return the max increase month
+    maxincreasemonth = keys_list[k+1]
+
+    #max profit decrease
+    maxdecreaseamount = min(profchange)
+    #index of max profit decrease stored as variable
+    l = profchange.index(min(profchange))
+    #return max decrease month
+    maxdecreasemonth = keys_list[l+1]
 
 
 
 
+    print("Financial Analysis")
+    print("-----------------------")
+    print(f"Total Months: {months}")
+    print(f"Total: ${netprof}")
+    print(f"Average Change: ${formatavchange}")
+    print(f"Greatest Increase in Profits: {maxincreasemonth} (${maxincreaseamount})")
+    print(f"Greatest Decrease in Profits: {maxdecreasemonth} (${maxdecreaseamount})")
 
