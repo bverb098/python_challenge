@@ -31,7 +31,7 @@ with open(bank_csv) as csv_file:
         prof=profit_loss[key]
         netprof += prof
 
-    #create a list of all the profits only by extracting each value from each key of our dic
+    #create a list of all the profits/lossses only by extracting each value from each key of our dic
     profitonly=[profit_loss[key] for key in profit_loss.keys()]
 
     #create a list using the list above. This time it is a list of the change in profit from each month
@@ -54,14 +54,20 @@ with open(bank_csv) as csv_file:
     maxincreasemonth = keys_list[k+1]
 
     #max profit decrease
-    maxdecreaseamount = min(profchange)
+    maxdecreaseamount = min(profchange)  
     #index of max profit decrease stored as variable
     l = profchange.index(min(profchange))
     #return max decrease month
     maxdecreasemonth = keys_list[l+1]
 
-
-
+    with open(os.path.join("Analysis","Analysis.txt"), "w") as a:
+        print("Financial Analysis",file=a)
+        print("-----------------------",file=a)
+        print(f"Total Months: {months}",file=a)
+        print(f"Total: ${netprof}",file=a)
+        print(f"Average Change: ${formatavchange}",file=a)
+        print(f"Greatest Increase in Profits: {maxincreasemonth} (${maxincreaseamount})",file=a)
+        print(f"Greatest Decrease in Profits: {maxdecreasemonth} (${maxdecreaseamount})",file=a)
 
     print("Financial Analysis")
     print("-----------------------")
