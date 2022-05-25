@@ -1,5 +1,10 @@
 import os
 import csv
+
+#as I got to the end of this challenge I realised I could have just created lists from the CSV to achive the same result.
+#I am just leaving the solution as is but I am aware it could have been a lot more efficient than extracting lists from the dictionary as I have done.
+
+
 #Set a path for this file to find the csv data file and call the file we are working with bank_csv
 bank_csv=os.path.join("Resources","budget_data.csv")
 
